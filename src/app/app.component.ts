@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  constructor(private _cdr: ChangeDetectorRef) {}
   accounts = [
     {
       name: 'Master Account',
@@ -20,6 +21,10 @@ export class AppComponent {
       status: 'unknown'
     }
   ];
+
+  ngAfterViewInit(): void {
+    this._cdr.detectChanges();
+  }
 
   onAccountAdded(newAccount: {name: string, status: string}) {
     this.accounts.push(newAccount);
